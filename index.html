@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of King Radit & Zahara</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-gold: #d4af37;
+            --primary-gold-light: #f3e5ab;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-light: #f8fafc;
+            --font-title: 'Great Vibes', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-royal: 'Cinzel', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #020617; /* Very dark navy */
+            color: var(--text-light);
+            font-family: var(--font-serif);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- MOBILE CONTAINER --- */
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* --- DECORATIVE ELEMENTS --- */
+        .ornament {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .ornament-top { top: -100px; left: -100px; }
+        .ornament-bottom { bottom: -100px; right: -100px; }
+
+        /* --- COVER SECTION --- */
+        #cover {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1511285560982-1356c11d4606?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .cover-content h2 {
+            font-family: var(--font-royal);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .cover-names {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--primary-gold), var(--primary-gold-light), var(--primary-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .btn-open {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary-gold), #bfa15f);
+            border: none;
+            border-radius: 50px;
+            color: var(--bg-dark);
+            font-family: var(--font-royal);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .btn-open:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+
+        /* --- MAIN CONTENT --- */
+        .content-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .bismillah {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 2rem;
+        }
+
+        /* --- PHOTO FRAME --- */
+        .photo-frame {
+            width: 280px;
+            height: 380px;
+            margin: 0 auto 2.5rem auto;
+            position: relative;
+            border: 1px solid var(--primary-gold);
+            padding: 10px;
+            border-radius: 150px 150px 0 0; /* Arch Shape */
+        }
+
+        .photo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 140px 140px 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- GANTI FOTO DI SINI --- */
+        .photo-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Filter sepia sedikit biar vintage */
+            filter: sepia(20%) contrast(110%); 
+        }
+
+        .couple-names-main {
+            font-family: var(--font-royal);
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .ampersand {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--primary-gold);
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .event-details {
+            margin-top: 3rem;
+            background: var(--bg-card);
+            padding: 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .detail-item {
+            margin-bottom: 1.5rem;
+        }
+        .detail-label {
+            font-family: var(--font-royal);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+        .detail-value {
+            font-size: 1.1rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            padding-bottom: 4rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="cover">
+        <div class="cover-content">
+            <h2>The Royal Wedding</h2>
+            <div class="cover-names">King Radit<br>&<br>Zahara</div>
+            <p style="margin-bottom: 2rem; font-style: italic; color: #aaa;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <div class="mobile-container" id="mainContainer">
+        <div class="ornament ornament-top"></div>
+        <div class="ornament ornament-bottom"></div>
+
+        <div class="content-section" id="content">
+            <div class="fade-in-up">
+                <div class="bismillah">Bismillahirrahmanirrahim</div>
+                <p style="margin-bottom: 2rem; font-size: 0.9rem; color: #ccc;">
+                    Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.
+                </p>
+            </div>
+
+            <div class="photo-frame fade-in-up">
+                <div class="photo-inner">
+                    <img src="radit.jpg" alt="King Radit & Zahara">
+                </div>
+            </div>
+
+            <div class="fade-in-up">
+                <div class="couple-names-main">King Radit</div>
+                <p style="font-size: 0.8rem; color: var(--primary-gold);">Putra dari Bpk. Raja & Ibu Ratu</p>
+                
+                <span class="ampersand">&</span>
+                
+                <div class="couple-names-main">Zahara Kamila<br>Tungga Dewi</div>
+                <p style="font-size: 0.8rem; color: var(--primary-gold);">Putri dari Bpk. Bangsawan & Ibu Dewi</p>
+            </div>
+
+            <div class="event-details fade-in-up">
+                <div class="detail-item">
+                    <div class="detail-label">AKAD NIKAH</div>
+                    <div class="detail-value">Sabtu, 20 Desember 2024</div>
+                    <div class="detail-value">08.00 WIB - Selesai</div>
+                </div>
+                <hr style="border: 0; border-top: 1px solid rgba(212,175,55,0.3); margin: 1.5rem 0;">
+                <div class="detail-item">
+                    <div class="detail-label">RESEPSI</div>
+                    <div class="detail-value">Minggu, 21 Desember 2024</div>
+                    <div class="detail-value">11.00 - 14.00 WIB</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">LOKASI</div>
+                    <div class="detail-value">Royal Grand Ballroom</div>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Jl. Sudirman No. 1, Jakarta</p>
+                </div>
+            </div>
+
+            <div class="fade-in-up" style="margin-top: 3rem;">
+                <p style="font-size: 0.9rem;">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+                <br>
+                <div style="font-family: var(--font-title); font-size: 1.5rem; color: var(--primary-gold);">
+                    Wassalamualaikum Wr. Wb.
+                </div>
+            </div>
+
+            <footer>
+                Created with ❤ by Your Name<br>
+                &copy; 2024 King Radit & Zahara Wedding
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function openInvitation() {
+            const cover = document.getElementById('cover');
+            const content = document.getElementById('content');
+            const mainContainer = document.getElementById('mainContainer');
+            
+            // Slide up animation for cover
+            cover.style.transform = 'translateY(-100%)';
+            
+            // Show content
+            content.style.display = 'block';
+            
+            // Allow a slight delay for the cover to move, then fade in content
+            setTimeout(() => {
+                content.style.opacity = '1';
+                // Trigger Intersection Observer specifically after open
+                handleScrollAnimation();
+            }, 500);
+        }
+
+        // Intersection Observer for Fade In Up Animation on Scroll
+        function handleScrollAnimation() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach(el => observer.observe(el));
+        }
+    </script>
+</body>
+</html>
