@@ -3,328 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of King Radit & Zahara</title>
+    <title>Wedding of Syahrul & Risa</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --primary-gold: #d4af37;
-            --primary-gold-light: #f3e5ab;
-            --bg-dark: #0f172a;
-            --bg-card: rgba(255, 255, 255, 0.05);
-            --text-light: #f8fafc;
-            --font-title: 'Great Vibes', cursive;
-            --font-serif: 'Playfair Display', serif;
-            --font-royal: 'Cinzel', serif;
+            --emerald-dark: #00221C;
+            --emerald-light: #00382E;
+            --gold-gradient: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --gold-solid: #D4AF37;
+            --text-white: #F0FDF4;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #020617; /* Very dark navy */
-            color: var(--text-light);
-            font-family: var(--font-serif);
+            background-color: #000;
+            color: var(--text-white);
+            font-family: 'Lato', sans-serif;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* --- MOBILE CONTAINER --- */
-        .mobile-container {
+        /* CANVAS BACKGROUND (Gold Dust Effect) */
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, var(--emerald-light), var(--emerald-dark));
+        }
+
+        /* MOBILE CONTAINER */
+        .container {
             max-width: 480px;
             margin: 0 auto;
-            background-color: var(--bg-dark);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            overflow: hidden;
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+            border-right: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0, 34, 28, 0.6); /* Transparan biar kelihatan particlenya */
+            backdrop-filter: blur(2px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        /* --- DECORATIVE ELEMENTS --- */
-        .ornament {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
+        /* TYPOGRAPHY UTILS */
+        .font-royal { font-family: 'Cinzel Decorative', cursive; }
+        .font-script { font-family: 'Great Vibes', cursive; }
+        
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+            font-weight: 700;
         }
-        .ornament-top { top: -100px; left: -100px; }
-        .ornament-bottom { bottom: -100px; right: -100px; }
 
-        /* --- COVER SECTION --- */
-        #cover {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1511285560982-1356c11d4606?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            z-index: 999;
+        /* COVER PAGE */
+        .cover {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 2rem;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-        .cover-content h2 {
-            font-family: var(--font-royal);
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            color: var(--primary-gold);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .cover-names {
-            font-family: var(--font-title);
-            font-size: 3.5rem;
-            background: linear-gradient(to right, var(--primary-gold), var(--primary-gold-light), var(--primary-gold));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 2rem;
-            line-height: 1.2;
-        }
-
-        .btn-open {
-            padding: 12px 30px;
-            background: linear-gradient(45deg, var(--primary-gold), #bfa15f);
-            border: none;
-            border-radius: 50px;
-            color: var(--bg-dark);
-            font-family: var(--font-royal);
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .btn-open:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-
-        /* --- MAIN CONTENT --- */
-        .content-section {
-            padding: 4rem 2rem;
-            text-align: center;
             position: relative;
-            z-index: 1;
-            display: none; /* Hidden initially */
+            z-index: 10;
+            transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .wedding-title {
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            color: var(--gold-solid);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--gold-solid);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .big-names {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: bold;
+            color: var(--emerald-dark);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            display: none;
+            padding: 4rem 1.5rem;
+            text-align: center;
             opacity: 0;
             transition: opacity 1s ease;
         }
 
-        .bismillah {
-            font-family: var(--font-title);
-            font-size: 2rem;
-            color: var(--primary-gold);
-            margin-bottom: 2rem;
-        }
-
-        /* --- PHOTO FRAME --- */
-        .photo-frame {
-            width: 280px;
-            height: 380px;
-            margin: 0 auto 2.5rem auto;
+        /* PHOTO FRAME - LUXURY HEXAGON */
+        .photo-wrapper {
+            width: 250px;
+            height: 350px;
+            margin: 0 auto 3rem auto;
             position: relative;
-            border: 1px solid var(--primary-gold);
             padding: 10px;
-            border-radius: 150px 150px 0 0; /* Arch Shape */
+            /* Border Emas Ganda */
+            border: 2px solid var(--gold-solid);
+            outline: 2px solid var(--gold-solid);
+            outline-offset: 5px;
         }
 
-        .photo-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 140px 140px 0 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* --- GANTI FOTO DI SINI --- */
-        .photo-inner img {
+        .photo-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Filter sepia sedikit biar vintage */
-            filter: sepia(20%) contrast(110%); 
+            filter: brightness(0.9) contrast(1.1);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
-        .couple-names-main {
-            font-family: var(--font-royal);
-            font-size: 1.8rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
+        /* CORNER ORNAMENTS */
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--gold-solid);
+            pointer-events: none;
+        }
+        .tl { top: -5px; left: -5px; border-bottom: none; border-right: none; }
+        .tr { top: -5px; right: -5px; border-bottom: none; border-left: none; }
+        .bl { bottom: -5px; left: -5px; border-top: none; border-right: none; }
+        .br { bottom: -5px; right: -5px; border-top: none; border-left: none; }
+
+        .couple-section h2 {
+            font-size: 2.2rem;
+            margin: 10px 0;
         }
 
-        .ampersand {
-            font-family: var(--font-title);
-            font-size: 3rem;
-            color: var(--primary-gold);
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        .event-details {
-            margin-top: 3rem;
-            background: var(--bg-card);
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
             padding: 2rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .detail-item {
-            margin-bottom: 1.5rem;
-        }
-        .detail-label {
-            font-family: var(--font-royal);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: var(--primary-gold);
-            margin-bottom: 0.5rem;
-        }
-        .detail-value {
-            font-size: 1.1rem;
+        .event-title {
+            font-family: 'Cinzel Decorative', cursive;
+            color: var(--gold-solid);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* ANIMATIONS */
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+            to { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); transform: scale(1.02); }
         }
 
-        .fade-in-up {
-            opacity: 0;
+        .fade-up {
             transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            opacity: 0;
+            transition: all 0.8s ease;
         }
-
-        .fade-in-up.visible {
-            opacity: 1;
+        .fade-up.active {
             transform: translateY(0);
+            opacity: 1;
         }
 
         footer {
             padding: 2rem;
-            text-align: center;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.4);
-            padding-bottom: 4rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
         }
 
     </style>
 </head>
 <body>
 
-    <div id="cover">
-        <div class="cover-content">
-            <h2>The Royal Wedding</h2>
-            <div class="cover-names">King Radit<br>&<br>Zahara</div>
-            <p style="margin-bottom: 2rem; font-style: italic; color: #aaa;">Kepada Yth. Saudara Zeventhora Sekalian</p>
-            <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="container">
+        
+        <div class="cover" id="cover">
+            <div class="wedding-title">The Royal Wedding</div>
+            
+            <div class="big-names font-script gold-text">
+                Aim<br>
+                <span style="font-size: 1.5rem; font-family: 'Cinzel Decorative'; color: #fff; -webkit-text-fill-color: #fff;">&</span><br>
+                Risa
+            </div>
+            
+            <p style="margin-bottom: 3rem; font-size: 0.9rem; letter-spacing: 1px;">
+                You are cordially invited to witness our union.
+            </p>
+
+            <button class="btn-gold" onclick="openWedding()">Buka Undangan</button>
         </div>
-    </div>
 
-    <div class="mobile-container" id="mainContainer">
-        <div class="ornament ornament-top"></div>
-        <div class="ornament ornament-bottom"></div>
-
-        <div class="content-section" id="content">
-            <div class="fade-in-up">
-                <div class="bismillah">Bismillahirrahmanirrahim</div>
-                <p style="margin-bottom: 2rem; font-size: 0.9rem; color: #ccc;">
-                    Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.
+        <div class="content" id="content">
+            
+            <div class="fade-up">
+                <div class="font-royal" style="color: var(--gold-solid); font-size: 2rem; margin-bottom: 1rem;">
+                    Basmalah
+                </div>
+                <p style="font-style: italic; margin-bottom: 3rem; color: #ccc;">
+                    "Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan."
                 </p>
             </div>
 
-            <div class="photo-frame fade-in-up">
-                <div class="photo-inner">
-                    <img src="radit.jpg" alt="King Radit & Zahara">
-                </div>
-            </div>
-
-            <div class="fade-in-up">
-                <div class="couple-names-main">King Radit</div>
-                <p style="font-size: 0.8rem; color: var(--primary-gold);">Putra dari Bpk. Raja & Ibu Ratu</p>
+            <div class="photo-wrapper fade-up">
+                <div class="corner tl"></div><div class="corner tr"></div>
+                <div class="corner bl"></div><div class="corner br"></div>
                 
-                <span class="ampersand">&</span>
+               
+                <img class="photo-img" src="aim.jpg" alt="Syahrul & Risa">
+            </div>
+
+            <div class="couple-section fade-up">
+                <h2 class="font-script gold-text">Syahrul Zahabi Ayman</h2>
+                <p>Putra dari Keluarga Besar Bpk. Ayman</p>
                 
-                <div class="couple-names-main">Zahara Kamila<br>Tungga Dewi</div>
-                <p style="font-size: 0.8rem; color: var(--primary-gold);">Putri dari Bpk. Bangsawan & Ibu Dewi</p>
+                <div style="font-size: 2rem; margin: 1rem 0; color: var(--gold-solid);">~ & ~</div>
+                
+                <h2 class="font-script gold-text">Risa</h2>
+                <p>Putri dari Keluarga Besar Ibu Risa</p>
             </div>
 
-            <div class="event-details fade-in-up">
-                <div class="detail-item">
-                    <div class="detail-label">AKAD NIKAH</div>
-                    <div class="detail-value">Sabtu, 25 November 2025</div>
-                    <div class="detail-value">08.00 WIB - Selesai</div>
-                </div>
-                <hr style="border: 0; border-top: 1px solid rgba(212,175,55,0.3); margin: 1.5rem 0;">
-                <div class="detail-item">
-                    <div class="detail-label">RESEPSI</div>
-                    <div class="detail-value">Minggu, 26 November 2025</div>
-                    <div class="detail-value">11.00 - 14.00 WIB</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">LOKASI</div>
-                    <div class="detail-value">Aula SMAN 1 Gresik</div>
-                    <p style="font-size: 0.8rem; margin-top: 5px;">Jl. Arif Rahman Hakim No. 1, Gresik</p>
-                </div>
-            </div>
-
-            <div class="fade-in-up" style="margin-top: 3rem;">
-                <p style="font-size: 0.9rem;">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+            <div class="card-glass fade-up">
+                <div class="event-title">AKAD NIKAH</div>
+                <p><strong>Sabtu, 26 November 2025</strong></p>
+                <p>Pukul 08.00 WIB</p>
+                <hr style="border-color: rgba(212,175,55,0.2); margin: 15px 0;">
+                <div class="event-title">RESEPSI</div>
+                <p><strong>Sabtu, 26 Desember 2025</strong></p>
+                <p>Pukul 11.00 - 14.00 WIB</p>
                 <br>
-                <div style="font-family: var(--font-title); font-size: 1.5rem; color: var(--primary-gold);">
-                    Wassalamualaikum Wr. Wb.
-                </div>
+                <p style="color: var(--gold-solid); font-weight: bold;">GRAND EMERALD BALLROOM</p>
+                <p style="font-size: 0.8rem;">Hotel Ritz Carlton, Jakarta</p>
+            </div>
+
+            <div class="fade-up" style="margin-top: 3rem;">
+                <p>Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu berkenan hadir.</p>
+                <br>
+                <h3 class="font-script gold-text" style="font-size: 2.5rem;">Terima Kasih</h3>
             </div>
 
             <footer>
-                Created By Ali Yafie<br>
-                &copy; 2025 King Radit & Zahara Wedding
+                Created By Fauzekk for Syahrul & Risa
             </footer>
         </div>
+
     </div>
 
     <script>
-        function openInvitation() {
-            const cover = document.getElementById('cover');
-            const content = document.getElementById('content');
-            const mainContainer = document.getElementById('mainContainer');
-            
-            // Slide up animation for cover
-            cover.style.transform = 'translateY(-100%)';
-            
-            // Show content
-            content.style.display = 'block';
-            
-            // Allow a slight delay for the cover to move, then fade in content
-            setTimeout(() => {
-                content.style.opacity = '1';
-                // Trigger Intersection Observer specifically after open
-                handleScrollAnimation();
-            }, 500);
+        // --- 1. JS FOR ANIMATED GOLD DUST (CANVAS) ---
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5; // Ukuran partikel
+                this.speedY = Math.random() * 0.5 + 0.2; // Kecepatan naik
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+            update() {
+                this.y -= this.speedY; // Gerak ke atas
+                if (this.y < 0) {
+                    this.y = height;
+                    this.x = Math.random() * width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`; // Warna Emas
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        // Intersection Observer for Fade In Up Animation on Scroll
-        function handleScrollAnimation() {
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 70; i++) { // Jumlah partikel
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw Gradient Background manual di canvas kalau perlu, tapi di CSS udah ada
+            // Kita gambar partikel aja
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animate();
+
+
+        // --- 2. JS FOR INTERACTION ---
+        function openWedding() {
+            const cover = document.getElementById('cover');
+            const content = document.getElementById('content');
+            
+            // Efek Zoom Out & Fade Cover
+            cover.style.transform = 'scale(1.1) translateY(-100vh)';
+            cover.style.opacity = '0';
+            
+            setTimeout(() => {
+                cover.style.display = 'none';
+                content.style.display = 'block';
+                
+                // Trigger animasi masuk
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    handleScroll();
+                }, 100);
+            }, 800);
+        }
+
+        // --- 3. SCROLL ANIMATION ---
+        function handleScroll() {
+            const elements = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
                     }
                 });
             }, { threshold: 0.1 });
 
-            const elements = document.querySelectorAll('.fade-in-up');
             elements.forEach(el => observer.observe(el));
         }
     </script>
